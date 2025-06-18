@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart - Phantom Moto</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .cart-item {
+      border-bottom: 1px solid #ccc;
+      padding: 15px 0;
+    }
+    .item-name {
+      font-weight: bold;
+    }
+    .total-amount {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #28a745;
+    }
+    .btn-pay {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Your Cart</h2>
+  <div id="cart-items"></div>
+  
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="total-amount" id="total">Total: ₹0</div>
+    <button class="btn btn-success btn-lg" style="background-color:red ;color: white; font-family:cursive; margin-right: 1vw;  margin-top: 3vh;border: 0px;opacity: 60%;" onclick="cancel()">Cancel</button>
+    <button class="btn btn-success btn-lg" onclick="payNow()" style="margin-top: 3vh;position: relative;left:-100px;font-family:cursive;">Pay Now</button>
+  </div>
+</div>
+
+<script>
+  // Retrieve cart data from localStorage
+  const cartData = JSON.parse(localStorage.getItem('phantomCart')) || {};
+  const cartContainer = document.getElementById('cart-items');
+  let total = 0;
+
+  function formatINR(amount) {
+    return amount.toLocaleString('en-IN');
+  }
+
+  // Render each cart item
+  Object.values(cartData).forEach(item => {
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+
+    const itemHTML = `
+      <div class="cart-item row align-items-center">
+        <div class="col-md-6 item-name">${item.name}</div>
+        <div class="col-md-2">Qty: ${item.quantity}</div>
+        <div class="col-md-2">Price: ₹${formatINR(item.price)}</div>
+        <div class="col-md-2 text-end">Subtotal: ₹${formatINR(itemTotal)}</div>
+      </div>
+    `;
+    cartContainer.insertAdjacentHTML('beforeend', itemHTML);
+  });
+
+  // Display total price
+  document.getElementById('total').innerText = `Total: ₹${formatINR(total)}`;
+
+  function payNow() {
+    alert("Proceeding to payment gateway (dummy)...");
+    // You can send cartData to backend using fetch or AJAX here
+    localStorage.removeItem('phantomCart');
+    window.location.href = "/";
+  }
+
+  function cancel() {
+    alert("warning.... your cart will be cleared    (┬┬﹏┬┬)");
+    // You can send cartData to backend using fetch or AJAX here
+    localStorage.removeItem('phantomCart');
+    window.location.href = "/";
+  }
+</script>
+
+</body>
+</html>
