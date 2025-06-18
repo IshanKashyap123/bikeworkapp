@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-*-*f=6jyea6%h5(r-8bl(1t-f(*&kia2x0x$q+=vvso(klua@-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['BikeAppDeployed.pythonanywhere.com']
+ALLOWED_HOSTS = ['bikeworkapp-1.onrender.com']
+
 
 
 # Application definition
